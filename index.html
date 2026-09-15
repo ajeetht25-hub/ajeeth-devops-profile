@@ -78,7 +78,7 @@
     font-size:13.5px; font-weight:700; color:#fff;
     background:var(--brand);
     padding:9px 18px; border-radius:99px;
-    text-decoration:none;
+    text-decoration:none; border:none; cursor:pointer; font-family:inherit;
     transition:transform 0.15s ease, box-shadow 0.15s ease;
   }
   .cta:hover{ transform:translateY(-1px); box-shadow:0 8px 18px -6px rgba(79,70,229,0.5); }
@@ -126,9 +126,10 @@
     display:inline-flex; align-items:center; gap:9px;
     font-weight:700; font-size:14.5px;
     padding:13px 22px; border-radius:12px; text-decoration:none;
+    cursor:pointer; font-family:inherit;
     transition:transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   }
-  .btn-primary{ background:var(--brand); color:#fff; box-shadow:0 10px 24px -8px rgba(79,70,229,0.55); }
+  .btn-primary{ background:var(--brand); color:#fff; border:none; box-shadow:0 10px 24px -8px rgba(79,70,229,0.55); }
   .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -8px rgba(79,70,229,0.6); }
   .btn-ghost{ background:#fff; color:var(--ink); border:1.5px solid var(--border); }
   .btn-ghost:hover{ border-color:var(--brand); transform:translateY(-2px); }
@@ -153,6 +154,29 @@
   .contact-block .icon-btn{ background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.5); color:#fff; }
   .contact-block .icon-btn:hover{ border-color:#fff; color:#fff; }
   .contact-block .icon-btn .tip{ background:#fff; color:var(--brand-ink); }
+
+  /* ---------------- email provider picker ---------------- */
+  .email-menu{ position:relative; display:inline-flex; }
+  .email-dropdown{
+    position:absolute; top:calc(100% + 8px); left:0; z-index:100;
+    background:#fff; border:1px solid var(--border); border-radius:14px;
+    padding:6px; min-width:200px;
+    box-shadow:0 20px 44px -14px rgba(17,24,39,0.28);
+    opacity:0; visibility:hidden; transform:translateY(-6px);
+    transition:opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  }
+  .email-menu.right .email-dropdown{ left:auto; right:0; }
+  .email-menu.open .email-dropdown{ opacity:1; visibility:visible; transform:translateY(0); }
+  .email-dropdown a{
+    display:flex; align-items:center; gap:11px;
+    padding:10px 12px; border-radius:9px; font-size:13.5px; font-weight:600; color:var(--ink);
+    text-decoration:none;
+  }
+  .email-dropdown a:hover{ background:var(--bg-soft); color:var(--brand); }
+  .email-dropdown .dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+  .email-dropdown .dot.gmail{ background:#ea4335; }
+  .email-dropdown .dot.outlook{ background:#0078d4; }
+  .email-dropdown .dot.default{ background:var(--ink-soft); }
 
   /* ---------------- metrics ---------------- */
   .metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:56px; }
@@ -321,10 +345,17 @@
     <a href="#strengths">Strengths</a>
     <a href="#credentials">Credentials</a>
   </div>
-  <a class="cta" href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener">
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
-    Get in touch
-  </a>
+  <div class="email-menu right">
+    <button class="cta" type="button" data-email-trigger>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+      Get in touch
+    </button>
+    <div class="email-dropdown" role="menu">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot gmail"></span>Gmail</a>
+      <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot outlook"></span>Outlook</a>
+      <a href="mailto:ajeetht2394@gmail.com"><span class="dot default"></span>Default mail app</a>
+    </div>
+  </div>
 </nav>
 
 <div class="wrap">
@@ -340,14 +371,17 @@
       observable with Prometheus and Grafana — production-ready, end to end.
     </p>
     <div class="hero-actions">
-      <a class="btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
-        Email me
-      </a>
-      <a class="icon-btn" href="mailto:ajeetht2394@gmail.com" aria-label="Open in mail app">
-        <span class="tip">Open in mail app</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-      </a>
+      <div class="email-menu">
+        <button class="btn-primary" type="button" data-email-trigger>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+          Email me
+        </button>
+        <div class="email-dropdown" role="menu">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot gmail"></span>Gmail</a>
+          <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot outlook"></span>Outlook</a>
+          <a href="mailto:ajeetht2394@gmail.com"><span class="dot default"></span>Default mail app</a>
+        </div>
+      </div>
       <button class="icon-btn copy-btn" type="button" data-copy="ajeetht2394@gmail.com" aria-label="Copy email">
         <span class="tip">Copy email</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -549,14 +583,17 @@
       <h2>Let's build something reliable.</h2>
       <p>Open to Cloud DevOps roles — happy to talk infrastructure, pipelines, or your next migration.</p>
       <div class="actions">
-        <a class="btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
-          Email me
-        </a>
-        <a class="icon-btn" href="mailto:ajeetht2394@gmail.com" aria-label="Open in mail app">
-          <span class="tip">Open in mail app</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-        </a>
+        <div class="email-menu">
+          <button class="btn-primary" type="button" data-email-trigger>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+            Email me
+          </button>
+          <div class="email-dropdown" role="menu">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot gmail"></span>Gmail</a>
+            <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot outlook"></span>Outlook</a>
+            <a href="mailto:ajeetht2394@gmail.com"><span class="dot default"></span>Default mail app</a>
+          </div>
+        </div>
         <button class="icon-btn copy-btn" type="button" data-copy="ajeetht2394@gmail.com" aria-label="Copy email">
           <span class="tip">Copy email</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -709,6 +746,25 @@
     toTop.classList.toggle('show', window.scrollY > 600);
   });
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+  /* ---- email provider picker ---- */
+  const emailMenus = document.querySelectorAll('.email-menu');
+  emailMenus.forEach(menu => {
+    const trigger = menu.querySelector('[data-email-trigger]');
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menu.classList.contains('open');
+      emailMenus.forEach(m => m.classList.remove('open'));
+      if (!isOpen) menu.classList.add('open');
+    });
+    menu.querySelectorAll('.email-dropdown a').forEach(link => {
+      link.addEventListener('click', () => menu.classList.remove('open'));
+    });
+  });
+  document.addEventListener('click', () => emailMenus.forEach(m => m.classList.remove('open')));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') emailMenus.forEach(m => m.classList.remove('open'));
+  });
 
   /* ---- copy-to-clipboard fallback for email/phone ---- */
   document.querySelectorAll('.copy-btn').forEach(btn => {
