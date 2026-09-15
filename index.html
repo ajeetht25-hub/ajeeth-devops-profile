@@ -132,7 +132,26 @@
   .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -8px rgba(79,70,229,0.6); }
   .btn-ghost{ background:#fff; color:var(--ink); border:1.5px solid var(--border); }
   .btn-ghost:hover{ border-color:var(--brand); transform:translateY(-2px); }
-  .icon{ width:16px; height:16px; flex:none; }
+  .icon{ width:16px; height:16px; flex:none; pointer-events:none; }
+  .copy-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:44px; height:44px; border-radius:12px;
+    background:#fff; border:1.5px solid var(--border); color:var(--ink-soft);
+    cursor:pointer; position:relative; flex:none;
+    transition:border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+  .copy-btn:hover{ border-color:var(--brand); color:var(--brand); transform:translateY(-2px); }
+  .copy-btn svg{ width:17px; height:17px; pointer-events:none; }
+  .copy-btn .tip{
+    position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(4px);
+    background:var(--ink); color:#fff; font-size:11.5px; font-weight:700;
+    padding:5px 10px; border-radius:7px; white-space:nowrap;
+    opacity:0; pointer-events:none; transition:opacity 0.15s ease, transform 0.15s ease;
+  }
+  .copy-btn.copied .tip{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .contact-block .copy-btn{ background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.5); color:#fff; }
+  .contact-block .copy-btn:hover{ border-color:#fff; color:#fff; }
+  .contact-block .copy-btn .tip{ background:#fff; color:var(--brand-ink); }
 
   /* ---------------- metrics ---------------- */
   .metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:56px; }
@@ -324,10 +343,18 @@
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
         ajeetht2394@gmail.com
       </a>
+      <button class="copy-btn" type="button" data-copy="ajeetht2394@gmail.com" aria-label="Copy email">
+        <span class="tip">Copied!</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
       <a class="btn-ghost" href="tel:+919940662303">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         +91 994-066-2303
       </a>
+      <button class="copy-btn" type="button" data-copy="+91 994-066-2303" aria-label="Copy phone number">
+        <span class="tip">Copied!</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
       <a class="btn-ghost" href="Ajeeth-T-Resume.pdf" download>
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download résumé
@@ -521,10 +548,18 @@
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
           Email me
         </a>
+        <button class="copy-btn" type="button" data-copy="ajeetht2394@gmail.com" aria-label="Copy email">
+          <span class="tip">Copied!</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
         <a class="btn-ghost" href="tel:+919940662303">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           Call me
         </a>
+        <button class="copy-btn" type="button" data-copy="+91 994-066-2303" aria-label="Copy phone number">
+          <span class="tip">Copied!</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -665,6 +700,27 @@
     toTop.classList.toggle('show', window.scrollY > 600);
   });
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+  /* ---- copy-to-clipboard fallback for email/phone ---- */
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1500);
+    });
+  });
 </script>
 
 </body>
