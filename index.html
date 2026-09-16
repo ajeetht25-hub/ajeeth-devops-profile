@@ -351,8 +351,8 @@
       Get in touch
     </button>
     <div class="email-dropdown" role="menu">
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot gmail"></span>Gmail</a>
-      <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot outlook"></span>Outlook</a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="ajeethGmailCompose" rel="noopener"><span class="dot gmail"></span>Gmail</a>
+      <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="ajeethOutlookCompose" rel="noopener"><span class="dot outlook"></span>Outlook</a>
       <a href="mailto:ajeetht2394@gmail.com"><span class="dot default"></span>Default mail app</a>
     </div>
   </div>
@@ -377,8 +377,8 @@
           Email me
         </button>
         <div class="email-dropdown" role="menu">
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot gmail"></span>Gmail</a>
-          <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot outlook"></span>Outlook</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="ajeethGmailCompose" rel="noopener"><span class="dot gmail"></span>Gmail</a>
+          <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="ajeethOutlookCompose" rel="noopener"><span class="dot outlook"></span>Outlook</a>
           <a href="mailto:ajeetht2394@gmail.com"><span class="dot default"></span>Default mail app</a>
         </div>
       </div>
@@ -589,8 +589,8 @@
             Email me
           </button>
           <div class="email-dropdown" role="menu">
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot gmail"></span>Gmail</a>
-            <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="_blank" rel="noopener"><span class="dot outlook"></span>Outlook</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajeetht2394@gmail.com" target="ajeethGmailCompose" rel="noopener"><span class="dot gmail"></span>Gmail</a>
+            <a href="https://outlook.office.com/mail/deeplink/compose?to=ajeetht2394@gmail.com" target="ajeethOutlookCompose" rel="noopener"><span class="dot outlook"></span>Outlook</a>
             <a href="mailto:ajeetht2394@gmail.com"><span class="dot default"></span>Default mail app</a>
           </div>
         </div>
@@ -748,11 +748,27 @@
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
   /* ---- email provider picker ---- */
+  function isMobileDevice(){
+    const ua = navigator.userAgent || navigator.vendor || '';
+    if (/android|iphone|ipod|iemobile|blackberry|opera mini|mobile/i.test(ua)) return true;
+    if (/ipad/i.test(ua)) return true;
+    if (navigator.maxTouchPoints && navigator.maxTouchPoints > 1 && /Macintosh/.test(ua)) return true; // iPadOS 13+
+    return false;
+  }
+  const onMobile = isMobileDevice();
+
   const emailMenus = document.querySelectorAll('.email-menu');
   emailMenus.forEach(menu => {
     const trigger = menu.querySelector('[data-email-trigger]');
+    const mailtoLink = menu.querySelector('.email-dropdown a[href^="mailto:"]');
     trigger.addEventListener('click', (e) => {
       e.stopPropagation();
+      if (onMobile && mailtoLink) {
+        // On phones, the OS itself offers the installed mail apps (Gmail, Outlook, etc.)
+        // as soon as a mailto: link fires, so skip the desktop picker entirely.
+        window.location.href = mailtoLink.getAttribute('href');
+        return;
+      }
       const isOpen = menu.classList.contains('open');
       emailMenus.forEach(m => m.classList.remove('open'));
       if (!isOpen) menu.classList.add('open');
